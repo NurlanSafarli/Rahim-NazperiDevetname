@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rahim & Nazpəri — Musiqili dəvətnamə</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,500;1,600&display=swap">
+<style>
+:root{--bg:#efe3cf;--bg2:#f8efe0;--rg:#8a3a4a;--lt:#4a1a28;--wine:#a8405c;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#efe3cf}}
+:root[data-theme="dark"]{--bg:#efe3cf}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;background:var(--bg);color:var(--lt);font-family:"Cormorant Garamond",Georgia,serif;overflow:hidden}
+#stage{position:relative;height:100%;background:radial-gradient(circle at 50% 30%,var(--bg2),var(--bg) 75%);overflow:hidden}
+.scene{position:absolute;top:0;right:0;bottom:0;left:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:10% 8%;opacity:0;transition:opacity 1.2s ease;pointer-events:none}
+.scene.on{opacity:1}
+.txt{font-size:clamp(21px,5.6vw,31px);line-height:1.6;letter-spacing:.03em;max-width:20em}
+.nm{font-family:"Cormorant Garamond",Georgia,serif;font-style:italic;font-weight:600;color:var(--rg);font-size:clamp(60px,18vw,120px);line-height:1;display:block}
+.nm span{display:inline-block;opacity:0}
+.on .nm span{animation:pop .9s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes pop{from{opacity:0;transform:translateY(24px) scale(.8)}to{opacity:1;transform:none}}
+.plus{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:clamp(30px,8vw,48px);color:var(--wine);margin:.15em 0}
+.date{display:flex;align-items:center;margin:.5em 0}
+.date b{font-family:"Cormorant Garamond",serif;font-weight:600;font-style:italic;color:var(--rg);line-height:.9}
+.d1{font-size:clamp(110px,34vw,200px)}
+.dm{display:flex;flex-direction:column;text-align:left;font-size:clamp(24px,7vw,40px);border-left:1px solid var(--rg);padding-left:clamp(14px,4vw,24px);line-height:1.35}
+.hr{font-size:clamp(34px,10vw,56px);color:var(--rg);margin-top:.3em;font-family:"Cormorant Garamond",serif;font-style:italic}
+.rings{width:150px;height:90px;margin-bottom:20px}
+.rings circle{fill:none;stroke:var(--rg);stroke-width:3;stroke-dasharray:190;stroke-dashoffset:190}
+.on .rings circle{animation:dr 2.6s ease forwards}.on .rings circle+circle{animation-delay:.9s}
+@keyframes dr{to{stroke-dashoffset:0}}
+.on .rise>*{animation:up 1.3s ease both}
+.on .rise>*:nth-child(2){animation-delay:.7s}.on .rise>*:nth-child(3){animation-delay:1.4s}.on .rise>*:nth-child(4){animation-delay:2.1s}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.line{width:70px;height:1px;background:var(--rg);margin:20px auto}
+.h{position:absolute;bottom:-30px;color:var(--wine);opacity:0;animation:fl linear infinite}
+@keyframes fl{0%{opacity:0;transform:translateY(0)}15%{opacity:.6}100%{opacity:0;transform:translateY(-115vh) translateX(30px)}}
+#start{position:absolute;top:0;right:0;bottom:0;left:0;z-index:10;background:radial-gradient(circle at 50% 35%,var(--bg2),var(--bg) 75%);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:8%;transition:opacity .8s}
+#start.hide{opacity:0;pointer-events:none}
+#start p{font-size:clamp(20px,5.5vw,30px)}
+.btn{background:none;border:1px solid var(--rg);color:var(--rg);font:inherit;font-size:20px;padding:12px 30px;border-radius:40px;cursor:pointer}
+.btn:focus-visible{outline:2px solid var(--lt);outline-offset:3px}
+.ctl{position:absolute;z-index:6;bottom:calc(26px + env(safe-area-inset-bottom,0px));left:0;right:0;display:flex;justify-content:center}
+.ctl .btn{font-size:16px;padding:7px 18px;opacity:.85}
+#again{display:none}#again.show{display:inline-block}
+#bar{position:absolute;left:0;top:0;height:3px;background:var(--rg);width:0;z-index:7}
+@media (prefers-reduced-motion:reduce){.h{display:none}}
+.date>*+*{margin-left:clamp(14px,5vw,30px)}
+#start>*+*{margin-top:22px}
+.ctl .btn{margin:0 6px}
+.btn{-webkit-appearance:none;appearance:none;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+@supports (height:100dvh){html,body{height:100dvh}}
+</style>
+</head>
+<body>
+<div id="stage">
+<div id="start">
+ <p>Rahim &amp; Nazpəri sizi<br>nikah mərasiminə dəvət edir</p>
+ <button class="btn" id="go" type="button">Dəvətnaməni aç ♪</button>
+ <p style="font-size:15px;opacity:.7">Səsi açın — musiqi ilə izləyin</p>
+</div>
+
+<section class="scene" data-t="6000">
+ <svg class="rings" viewBox="0 0 150 90" aria-hidden="true"><circle cx="58" cy="45" r="30"/><circle cx="92" cy="45" r="30"/></svg>
+ <div class="rise"><p class="txt">İki ürək, bir yol</p><div class="line"></div><p class="txt">Sizi bu xoş günün şahidi olmağa dəvət edirik</p></div>
+</section>
+
+<section class="scene" data-t="7500">
+ <p class="txt">Nikah mərasimi</p>
+ <span class="nm" data-s="Rahim"></span>
+ <p class="plus">və</p>
+ <span class="nm" data-s="Nazpəri" data-d="1.6"></span>
+</section>
+
+<section class="scene" data-t="7000">
+ <div class="rise"><p class="txt">Sizi gözləyirik</p>
+ <div class="date"><b class="d1">1</b><div class="dm"><span>noyabr</span><span>2026-cı il</span><span>bazar günü</span></div></div>
+ <p class="hr">saat 13:30</p></div>
+</section>
+
+<section class="scene" data-t="6500">
+ <div class="rise"><p class="txt">Məkan</p>
+ <span class="nm" style="font-size:clamp(50px,15vw,100px)" data-s="Səadət Sarayı" data-w="1"></span>
+ <div class="line"></div><p class="txt">Gəlişiniz bizim üçün ən böyük hədiyyədir</p></div>
+</section>
+
+<section class="scene" data-t="0">
+ <div class="rise"><p class="txt">Sevgi və hörmətlə</p>
+ <span class="nm" style="font-size:clamp(46px,13vw,86px)" data-s="Rahim &amp; Nazpəri" data-w="1"></span>
+ <div class="line"></div><p class="txt">1 noyabr · 13:30 · Səadət Sarayı</p></div>
+</section>
+
+<div id="bar"></div>
+<div class="ctl"><button class="btn" id="mute" type="button">Səsi bağla</button><button class="btn" id="again" type="button">Yenidən izlə</button></div>
+</div>
+<script>
+(function(){
+var stage=document.getElementById('stage'),scenes=[].slice.call(document.querySelectorAll('.scene')),
+bar=document.getElementById('bar'),again=document.getElementById('again'),mute=document.getElementById('mute'),
+start=document.getElementById('start'),timers=[],ac=null,master=null,muted=false,seq=null,nextT=0,step=0;
+/* letters */
+[].forEach.call(document.querySelectorAll('.nm'),function(el){
+ var s=el.getAttribute('data-s').replace('&amp;','&'),d=parseFloat(el.getAttribute('data-d')||0),w=el.getAttribute('data-w');
+ if(w){el.textContent=s;el.classList.add('fadein');return;}
+ s.split('').forEach(function(c,i){var sp=document.createElement('span');sp.textContent=c;sp.style.animationDelay=(0.5+d+i*0.16)+'s';el.appendChild(sp);});
+});
+var st=document.createElement('style');st.textContent='.nm.fadein{opacity:0}.on .nm.fadein{animation:up 1.4s ease .6s forwards}';document.head.appendChild(st);
+for(var i=0;i<12;i++){var h=document.createElement('div');h.className='h';h.textContent='♥';h.style.left=Math.random()*100+'%';
+ h.style.fontSize=(10+Math.random()*14)+'px';h.style.animationDuration=(9+Math.random()*7)+'s';h.style.animationDelay=(-Math.random()*14)+'s';stage.insertBefore(h,stage.firstChild);}
+var total=scenes.reduce(function(a,s){return a+(+s.dataset.t||0)-800},0)+7000;
+/* music: Pachelbel - Kanon (D major), public-domain tune, synthesized */
+var C=2.3,
+CH=[[293.66,369.99,440],[220,277.18,329.63],[246.94,293.66,369.99],[185,220,277.18],[196,246.94,293.66],[293.66,369.99,440],[196,246.94,293.66],[220,277.18,329.63]],
+BS=[146.83,110,123.47,92.5,98,146.83,98,110],
+MA=[739.99,659.25,587.33,554.37,493.88,440,493.88,554.37],
+MB=[587.33,554.37,493.88,440,392,369.99,392,329.63];
+function tone(f,t,dur,vol,type,att){var o=ac.createOscillator(),g=ac.createGain();o.type=type;o.frequency.value=f;
+ g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(vol,t+att);g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
+ o.connect(g);g.connect(master);o.start(t);o.stop(t+dur+.05);}
+function song(n,t){var k=n%8,c=CH[k],q=C/4,ml=(Math.floor(n/8)%2?MB:MA)[k];
+ tone(BS[k],t,C,.17,'sine',.03);tone(BS[k]*2,t,C*.8,.04,'sine',.03);
+ [0,1,2,1].forEach(function(j,i){var tt=t+i*q;tone(c[j],tt,1.5,.08,'triangle',.01);tone(c[j]*2,tt,.7,.02,'sine',.01);});
+ c.forEach(function(f){tone(f,t,C+.5,.03,'sine',.6)});
+ tone(ml,t,C+.3,.1,'triangle',.07);tone(ml*2,t,C*.7,.015,'sine',.07);}
+function tick(){while(nextT<ac.currentTime+.6){song(step,nextT);nextT+=C;step++;}}
+function musicOn(){
+ try{if(navigator.audioSession)navigator.audioSession.type='playback'}catch(e){}
+ if(!ac){var A=window.AudioContext||window.webkitAudioContext;if(!A)return;ac=new A();master=ac.createGain();master.gain.value=0;
+  var cv=ac.createConvolver(),len=Math.floor(ac.sampleRate*2.6),buf=ac.createBuffer(2,len,ac.sampleRate);
+  for(var c=0;c<2;c++){var d=buf.getChannelData(c);for(var i=0;i<len;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/len,2.4);}
+  cv.buffer=buf;var wet=ac.createGain();wet.gain.value=.55;master.connect(ac.destination);master.connect(cv);cv.connect(wet);wet.connect(ac.destination);}
+ if(ac.state!=='running'){try{var rp=ac.resume();if(rp&&rp.catch)rp.catch(function(){})}catch(e){}}
+ step=0;nextT=ac.currentTime+.1;clearInterval(seq);seq=setInterval(function(){try{tick()}catch(e){}},150);tick();
+ master.gain.cancelScheduledValues(ac.currentTime);master.gain.setValueAtTime(master.gain.value,ac.currentTime);
+ master.gain.linearRampToValueAtTime(muted?0:.9,ac.currentTime+2);}
+function musicOff(sec){if(!ac)return;master.gain.cancelScheduledValues(ac.currentTime);master.gain.setValueAtTime(master.gain.value,ac.currentTime);
+ master.gain.linearRampToValueAtTime(0,ac.currentTime+sec);setTimeout(function(){clearInterval(seq)},sec*1000+200);}
+function play(){
+ timers.forEach(clearTimeout);timers=[];again.classList.remove('show');
+ scenes.forEach(function(s){s.classList.remove('on')});
+ bar.style.transition='none';bar.style.width='0';void bar.offsetWidth;
+ bar.style.transition='width '+total+'ms linear';bar.style.width='100%';
+ try{musicOn()}catch(e){}
+ var at=300;
+ scenes.forEach(function(s,i){
+  timers.push(setTimeout(function(){if(i>0)scenes[i-1].classList.remove('on');s.classList.add('on');
+   if(i===scenes.length-1){timers.push(setTimeout(function(){try{musicOff(3)}catch(e){}},4500));timers.push(setTimeout(function(){again.classList.add('show')},5500));}},at));
+  at+=(+s.dataset.t||0)-800;});}
+document.getElementById('go').addEventListener('click',function(){start.classList.add('hide');play();});
+again.addEventListener('click',play);
+mute.addEventListener('click',function(){muted=!muted;mute.textContent=muted?'Səsi aç':'Səsi bağla';
+ if(ac){master.gain.cancelScheduledValues(ac.currentTime);master.gain.setTargetAtTime(muted?0:.9,ac.currentTime,.1);}});
+})();
+</script>
+</body>
+</html>
